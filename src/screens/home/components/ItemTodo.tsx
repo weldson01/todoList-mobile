@@ -8,21 +8,28 @@ import {
 
 interface IItemTodoProps {
   title: string;
-  handleDone?: () => void;
+  id: string;
+  handleDone?: (id: string) => void;
   handleDelete?: (title: string) => void;
 }
 export const ItemTodo = ({
   title,
+  id,
   handleDone,
   handleDelete,
 }: IItemTodoProps) => {
+  const handleDoneItem = () => {
+    if (handleDone) {
+      handleDone(id);
+    }
+  };
   return (
     <View style={styles.todoItem}>
       <ScrollView style={{ flex: 1, height: 32 + 8 }} horizontal>
         <Text style={styles.title}>{title}</Text>
       </ScrollView>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.doneBtn}>
+        <TouchableOpacity style={styles.doneBtn} onPress={handleDoneItem}>
           <Text style={{ fontSize: 18 }}>Done</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.delteBtn}>

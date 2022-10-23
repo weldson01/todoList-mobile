@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   FlatList,
@@ -7,45 +8,64 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { GenereteId } from "../../utils/genereteId/GenereteId";
 import { ItemTodo } from "./components/ItemTodo";
+interface ITodoItem {
+  title: string;
+  id: string;
+}
 export const Home = () => {
+  const [todoList, setTodoList] = useState<ITodoItem[]>([]);
+  const [doneList, setDoneList] = useState<ITodoItem[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const handleAddItemtoTodo = () => {
+    console.log(todoList);
+    if (inputValue != "") {
+      setTodoList((prev) => {
+        const text = inputValue;
+        setInputValue("");
+        return [...prev, { id: `${GenereteId()}`, title: text }];
+      });
+    }
+  };
+  const handleAddToDoneList = (id: string) => {};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home page</Text>
       <Text style={{ fontSize: 16 }}>To-do List</Text>
       <FlatList
-        data={[
-          { id: "1", title: "Hi" },
-          { id: "2", title: "have lunchlunchlunchlunchlunchlunch" },
-          { id: "3", title: "have lunch" },
-          { id: "4", title: "have lunch" },
-          { id: "5", title: "have lunch" },
-          { id: "6", title: "have lunch" },
-          { id: "7", title: "have lunch" },
-          { id: "8", title: "have lunch" },
-          { id: "9", title: "have lunch" },
-          { id: "10", title: "have lunch" },
-          { id: "11", title: "have lunch" },
-          { id: "12", title: "have lunch" },
-          { id: "13", title: "have lunch" },
-          { id: "14", title: "have lunch" },
-        ]}
+        data={todoList}
         renderItem={(data) => {
-          return <ItemTodo title={data.item.title} />;
+          return (
+            <ItemTodo
+              title={data?.item?.title}
+              id={data?.item?.id}
+              handleDone={handleAddToDoneList}
+            />
+          );
         }}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => {
+          return item?.id;
+        }}
         style={styles.listTodo}
       />
       <Text style={{ fontSize: 16 }}>Done List</Text>
       <FlatList
-        data={[{ id: "1", title: "okokok" }]}
+        data={doneList}
         renderItem={(data) => {
-          return <ItemTodo title={data.item.title} />;
+          return <ItemTodo title={data?.item?.title} id={data?.item?.id} />;
+        }}
+        keyExtractor={(item) => {
+          return item?.id;
         }}
       />
       <View style={styles.actionsHome}>
-        <TextInput style={styles.inputText} />
-        <TouchableOpacity style={styles.btnAdd}>
+        <TextInput
+          style={styles.inputText}
+          value={inputValue}
+          onChangeText={(e) => setInputValue(e)}
+        />
+        <TouchableOpacity style={styles.btnAdd} onPress={handleAddItemtoTodo}>
           <Text style={styles.btnAddTitle}>+</Text>
         </TouchableOpacity>
       </View>
