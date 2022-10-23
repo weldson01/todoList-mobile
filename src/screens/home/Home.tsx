@@ -28,6 +28,7 @@ export const Home = () => {
       });
     }
   };
+
   const handleAddToDoneList = (id: string) => {
     setDoneList((prev) => {
       if (todoList.some((i) => i.id == id)) {
@@ -51,6 +52,17 @@ export const Home = () => {
       return prev;
     });
   };
+
+  const handleRemoveItem = (id: string) => {
+    if (todoList.some((i) => i.id === id)) {
+      const newList = todoList.filter((i) => i.id !== id);
+      setTodoList(newList);
+    }
+    if (doneList.some((i) => i.id === id)) {
+      const newList = doneList.filter((i) => i.id !== id);
+      setDoneList(newList);
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home page</Text>
@@ -64,6 +76,8 @@ export const Home = () => {
               id={data?.item?.id}
               handleDone={handleAddToDoneList}
               key={data?.item?.id}
+              handleDelete={handleRemoveItem}
+              onlyDelete={false}
             />
           );
         }}
@@ -81,6 +95,8 @@ export const Home = () => {
               title={data?.item?.title}
               id={data?.item?.id}
               key={data?.item?.id}
+              onlyDelete={true}
+              handleDelete={handleRemoveItem}
             />
           );
         }}

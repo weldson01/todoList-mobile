@@ -11,16 +11,23 @@ interface IItemTodoProps {
   id: string;
   handleDone?: (id: string) => void;
   handleDelete?: (title: string) => void;
+  onlyDelete?: boolean;
 }
 export const ItemTodo = ({
   title,
   id,
   handleDone,
   handleDelete,
+  onlyDelete,
 }: IItemTodoProps) => {
   const handleDoneItem = () => {
     if (handleDone) {
       handleDone(id);
+    }
+  };
+  const handleDelteItem = () => {
+    if (handleDelete) {
+      handleDelete(id);
     }
   };
   return (
@@ -29,10 +36,12 @@ export const ItemTodo = ({
         <Text style={styles.title}>{title}</Text>
       </ScrollView>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.doneBtn} onPress={handleDoneItem}>
-          <Text style={{ fontSize: 18 }}>Done</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.delteBtn}>
+        {onlyDelete === false && (
+          <TouchableOpacity style={styles.doneBtn} onPress={handleDoneItem}>
+            <Text style={{ fontSize: 18 }}>Done</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={styles.delteBtn} onPress={handleDelteItem}>
           <Text style={{ fontSize: 18 }}>Delete</Text>
         </TouchableOpacity>
       </View>
