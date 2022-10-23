@@ -28,7 +28,29 @@ export const Home = () => {
       });
     }
   };
-  const handleAddToDoneList = (id: string) => {};
+  const handleAddToDoneList = (id: string) => {
+    setDoneList((prev) => {
+      if (todoList.some((i) => i.id == id)) {
+        const auxItem = todoList.find((item) => item.id === id);
+        const isRepeatedItem = !!prev.some((i) => i.id === id);
+
+        if (isRepeatedItem) {
+          return prev;
+        }
+        if (auxItem) {
+          setTodoList((prev) => {
+            const newArray = prev.filter((item) => item.id !== id);
+            if (newArray) {
+              return newArray;
+            }
+            return prev;
+          });
+          return [...prev, auxItem];
+        }
+      }
+      return prev;
+    });
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home page</Text>
@@ -41,6 +63,7 @@ export const Home = () => {
               title={data?.item?.title}
               id={data?.item?.id}
               handleDone={handleAddToDoneList}
+              key={data?.item?.id}
             />
           );
         }}
@@ -53,7 +76,13 @@ export const Home = () => {
       <FlatList
         data={doneList}
         renderItem={(data) => {
-          return <ItemTodo title={data?.item?.title} id={data?.item?.id} />;
+          return (
+            <ItemTodo
+              title={data?.item?.title}
+              id={data?.item?.id}
+              key={data?.item?.id}
+            />
+          );
         }}
         keyExtractor={(item) => {
           return item?.id;
