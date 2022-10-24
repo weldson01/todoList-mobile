@@ -38,11 +38,11 @@ export const ItemTodo = ({
       <View style={styles.actions}>
         {onlyDelete === false && (
           <TouchableOpacity style={styles.doneBtn} onPress={handleDoneItem}>
-            <Text style={{ fontSize: 18 }}>Done</Text>
+            <Text style={{ fontSize: 18, color: "#EEF1FF" }}>Done</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity style={styles.delteBtn} onPress={handleDelteItem}>
-          <Text style={{ fontSize: 18 }}>Delete</Text>
+          <Text style={{ fontSize: 18, color: "#EEF1FF" }}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -54,18 +54,24 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#eee",
-    marginBottom: 8,
+    backgroundColor: "#AEBDCA",
+    marginBottom: 16,
+    borderRadius: 30,
   },
-  title: { fontSize: 20, alignSelf: "center", paddingLeft: 8 },
+  title: {
+    fontSize: 20,
+    alignSelf: "center",
+    paddingLeft: 16,
+    color: "#222",
+  },
   actions: {
     flexDirection: "row",
-    backgroundColor: "#ffff7cba",
+    backgroundColor: "#EEF1FF",
   },
   doneBtn: {
     width: 16 * 4,
     height: 16 * 3,
-    backgroundColor: "rgb(100,200,100)",
+    backgroundColor: "#54BAB9",
     justifyContent: "center",
     marginRight: 8,
     alignItems: "center",
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
   delteBtn: {
     width: 16 * 4,
     height: 16 * 3,
-    backgroundColor: "rgb(200,100,100)",
+    backgroundColor: "#FF9494",
     justifyContent: "center",
     alignItems: "center",
   },

@@ -104,6 +104,7 @@ export const Home = () => {
         keyExtractor={(item) => {
           return item?.id;
         }}
+        style={styles.listTodo}
       />
       <View style={styles.actionsHome}>
         <TextInput
