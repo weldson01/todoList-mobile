@@ -8,18 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 import { GenereteId } from "../../utils/genereteId/GenereteId";
 import { ItemTodo } from "./components/ItemTodo";
 interface ITodoItem {
   title: string;
   id: string;
 }
+
 export const Home = () => {
   const [todoList, setTodoList] = useState<ITodoItem[]>([]);
   const [doneList, setDoneList] = useState<ITodoItem[]>([]);
   const [inputValue, setInputValue] = useState("");
   const handleAddItemtoTodo = () => {
-    console.log(todoList);
     if (inputValue != "") {
       setTodoList((prev) => {
         const text = inputValue;
@@ -65,8 +66,8 @@ export const Home = () => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home page</Text>
-      <Text style={{ fontSize: 16 }}>To-do List</Text>
+      <Text style={styles.title}>Well todo-list</Text>
+      <Text style={styles.titleSection}>To-do List</Text>
       <FlatList
         data={todoList}
         renderItem={(data) => {
@@ -86,7 +87,7 @@ export const Home = () => {
         }}
         style={styles.listTodo}
       />
-      <Text style={{ fontSize: 16 }}>Done List</Text>
+      <Text style={styles.titleSection}>Done List</Text>
       <FlatList
         data={doneList}
         renderItem={(data) => {
@@ -109,6 +110,7 @@ export const Home = () => {
           style={styles.inputText}
           value={inputValue}
           onChangeText={(e) => setInputValue(e)}
+          placeholder={"Put your task here ..."}
         />
         <TouchableOpacity style={styles.btnAdd} onPress={handleAddItemtoTodo}>
           <Text style={styles.btnAddTitle}>+</Text>
@@ -124,20 +126,33 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 20,
     paddingHorizontal: 5,
+    backgroundColor: "#EEF1FF",
   },
   title: {
     fontSize: 32,
     alignSelf: "center",
-    fontWeight: "800",
+    fontFamily: "Changa_700Bold",
+    color: "#554994",
+    marginBottom: 5,
+  },
+  titleSection: {
+    fontSize: 24,
+    width: "100%",
+    borderRadius: 30,
+    backgroundColor: "#B1B2FF",
+    color: "#EEF1FF",
+    textAlign: "center",
+    fontFamily: "Changa_400Regular",
   },
   listTodo: {
+    flex: 1,
     paddingTop: 8,
-    height: "25%",
     marginBottom: 8,
   },
   inputText: {
     flex: 1,
-    backgroundColor: "#999",
+    backgroundColor: "#AAC4FF",
+    color: "#EEF1FF",
     fontSize: 16 + 16 / 2,
     paddingHorizontal: 16,
     borderTopLeftRadius: 30,
@@ -152,11 +167,12 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "lime",
+    backgroundColor: "#6867AC",
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
   },
   btnAddTitle: {
-    fontSize: 16 + 16 / 2,
+    fontSize: 36,
+    color: "#EEF1FF",
   },
 });
